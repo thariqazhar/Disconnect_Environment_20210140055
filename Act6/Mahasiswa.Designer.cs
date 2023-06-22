@@ -58,6 +58,7 @@
             this.txtNama = new System.Windows.Forms.TextBox();
             this.txtAlamat = new System.Windows.Forms.TextBox();
             this.cbxJenisKelamin = new System.Windows.Forms.ComboBox();
+            this.btnBack = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
             this.bindingNavigator1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -344,16 +345,30 @@
             // 
             this.cbxJenisKelamin.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.cbxJenisKelamin.FormattingEnabled = true;
+            this.cbxJenisKelamin.Items.AddRange(new object[] {
+            "L",
+            "P"});
             this.cbxJenisKelamin.Location = new System.Drawing.Point(115, 133);
             this.cbxJenisKelamin.Name = "cbxJenisKelamin";
             this.cbxJenisKelamin.Size = new System.Drawing.Size(116, 28);
             this.cbxJenisKelamin.TabIndex = 12;
+            // 
+            // btnBack
+            // 
+            this.btnBack.Location = new System.Drawing.Point(22, 83);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(75, 32);
+            this.btnBack.TabIndex = 12;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // Mahasiswa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 499);
+            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnSave);
@@ -402,5 +417,6 @@
         private System.Windows.Forms.TextBox txtNama;
         private System.Windows.Forms.TextBox txtAlamat;
         private System.Windows.Forms.ComboBox cbxJenisKelamin;
+        private System.Windows.Forms.Button btnBack;
     }
 }

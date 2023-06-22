@@ -56,33 +56,30 @@ namespace Act6
             jk = cbxJenisKelamin.Text;
             alamat = txtAlamat.Text;
             tgl = dtTanggalLahir.Value;
-            prodi = cbxProdi.Text;
-            int hs = 0;
+            prodi = cbxProdi.SelectedValue.ToString();
             koneksi.Open();
-            string strs = "select id_prodi from dbo.Prodi where nama_prodi = @dd";
+            string strs = "select id_prodi from dbo.prodi where nama_prodi = @dd";
             SqlCommand cm = new SqlCommand(strs, koneksi);
             cm.CommandType = CommandType.Text;
             cm.Parameters.Add(new SqlParameter("@dd", prodi));
             SqlDataReader dr = cm.ExecuteReader();
-            while (dr.Read())
-            {
-                hs = int.Parse(dr["id_prodi"].ToString());
-            }
             dr.Close();
-            string str = "insert into dbo.mahasiswa (nim, nama_mahasiswa, jenis_kel, alamat, tgl_lahir, id_prodi)" +
+            string str = "insert into dbo.Mahasiswa (nim, nama_mahasiswa, jenis_kel, alamat, tgl_lahir, id_prodi)" +
                 "values(@NIM, @Nm, @Jk, @Al, @Tgll, @Idp)";
             SqlCommand cmd = new SqlCommand(str, koneksi);
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add(new SqlParameter("NIM", nim));
-            cmd.Parameters.Add(new SqlParameter("Nm", nama));
-            cmd.Parameters.Add(new SqlParameter("Jk", jk));
-            cmd.Parameters.Add(new SqlParameter("Al", alamat));
-            cmd.Parameters.Add(new SqlParameter("Tgll", tgl));
-            cmd.Parameters.Add(new SqlParameter("Idp", hs));
+            cmd.Parameters.Add(new SqlParameter("@NIM", nim));
+            cmd.Parameters.Add(new SqlParameter("@Nm", nama));
+            cmd.Parameters.Add(new SqlParameter("@Jk", jk));
+            cmd.Parameters.Add(new SqlParameter("@AL", alamat));
+            cmd.Parameters.Add(new SqlParameter("@Tgll", tgl));
+            cmd.Parameters.Add(new SqlParameter("@Idp", prodi));
             cmd.ExecuteNonQuery();
 
             koneksi.Close();
-            MessageBox.Show("Data berhasil disimpan", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            MessageBox.Show("Data Berhasil Disimpan", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             refreshform();
         }
 
@@ -121,6 +118,13 @@ namespace Act6
             koneksi.Close();
         }
 
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            Form1 fm = new Form1();
+            fm.Show();
+            this.Hide();
+        }
+
         private void clearBinding()
         {
             this.txtNIM.DataBindings.Clear();
@@ -149,7 +153,7 @@ namespace Act6
         private void Prodicbx()
         {
             koneksi.Open();
-            string str = "select nama_prodi from dbo.Prodi";
+            string str = "select id_prodi, nama_prodi from dbo.Prodi";
             SqlCommand cmd = new SqlCommand(str, koneksi);
             SqlDataAdapter da = new SqlDataAdapter(str, koneksi);
             DataSet ds = new DataSet();

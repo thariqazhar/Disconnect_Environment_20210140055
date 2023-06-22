@@ -20,6 +20,8 @@ namespace Act6
         {
             nmp.Text = "";
             nmp.Enabled = false;
+            txtnm.Text = "";
+            txtnm.Enabled = false;
             btnSave.Enabled = false;
             btnClear.Enabled = false;
         }
@@ -76,16 +78,20 @@ namespace Act6
 
             if (nmProdi == "")
             {
-                MessageBox.Show("Masukkan Nama Prodi", "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Masukkan Nama Prodi", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            if (idProdi == "")
+            {
+                MessageBox.Show("Masukkan Nama ID Prodi", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
                 koneksi.Open();
-                string query = "INSERT INTO dbo.prodi (id_prodi, nama_prodi) VALUES (@id_prodi, @nama_prodi)";
-                SqlCommand cmd = new SqlCommand(query, koneksi);
+                string str = "INSERT INTO prodi (id_prodi, nama_prodi) VALUES (@id_prodi, @nama_prodi)";
+                SqlCommand cmd = new SqlCommand(str, koneksi);
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("@id_prodi", idProdi);
-                cmd.Parameters.AddWithValue("@nama_prodi", nmProdi);
+                cmd.Parameters.Add(new SqlParameter("@id_prodi", idProdi));
+                cmd.Parameters.Add(new SqlParameter("@nama_prodi", nmProdi));
                 cmd.ExecuteNonQuery();
 
                 koneksi.Close();
@@ -107,6 +113,13 @@ namespace Act6
         {
             txtnm.Enabled = true;
             btnSave.Enabled = true;
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            Form1 fm = new Form1();
+            fm.Show();
+            this.Hide();
         }
     }
 }

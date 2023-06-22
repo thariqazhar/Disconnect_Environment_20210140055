@@ -24,6 +24,8 @@ namespace Act6
 
         private void Status_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'act6DataSet.mahasiswa' table. You can move, or remove it, as needed.
+            this.mahasiswaTableAdapter.Fill(this.act6DataSet.mahasiswa);
 
         }
 
@@ -35,20 +37,20 @@ namespace Act6
             cbxNama.SelectedIndex = -1;
             cbxStatus.SelectedIndex = -1;
             cbxTahun.SelectedIndex = -1;
-            txtNIM.Enabled = false;
-            btnAdd.Enabled = true;
+            txtNIM.Visible = false;
             btnSave.Enabled = false;
             btnClear.Enabled = false;
+            btnAdd.Enabled = true;
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             string nim = txtNIM.Text;
-            string status = cbxStatus.Text;
-            string tahun = cbxTahun.Text;
+            string statusMahasiswa = cbxStatus.Text;
+            string tahunMasuk = cbxTahun.Text;
             int count = 0;
             string tempKodeStatus = "";
-            string KodeStatus = "";
+            string kodeStatus = "";
             koneksi.Open();
 
             string str = "select count (*) from dbo.status_mahasiswa";
@@ -56,30 +58,29 @@ namespace Act6
             count = (int)cm.ExecuteScalar();
             if (count == 0)
             {
-                KodeStatus = "1";
+                kodeStatus = "1";
             }
             else
             {
-                string querymax = "select Max(id_status) from dbo.status_mahasiswa";
-                SqlCommand cmstatusSum = new SqlCommand(querymax, koneksi);
-                int totalstatus = (int)cmstatusSum.ExecuteScalar();
-                int finalKodeStatusInt = totalstatus + 1;
-                KodeStatus = Convert.ToString(finalKodeStatusInt);
+                string queryStrings = "select Max(id_status) from dbo.status_mahasiswa";
+                SqlCommand cmStatusMahasiswaSum = new SqlCommand(str, koneksi);
+                int totalStatusMahasiswa = (int)cmStatusMahasiswaSum.ExecuteScalar();
+                int finalKodeStatusInt = totalStatusMahasiswa + 1;
+                kodeStatus = Convert.ToString(finalKodeStatusInt);
             }
-            string queryString = "insert into dbo.status_mahasiswa (id_status, nim " +
+            string queryString = "insert into dbo.status_mahasiswa (id_status, nim, " +
                 "status_mahasiswa, tahun_masuk)" + "values(@ids, @NIM, @sm, @tm)";
             SqlCommand cmd = new SqlCommand(queryString, koneksi);
             cmd.CommandType = CommandType.Text;
 
-            cmd.Parameters.Add(new SqlParameter("ids", KodeStatus));
+            cmd.Parameters.Add(new SqlParameter("ids", kodeStatus));
             cmd.Parameters.Add(new SqlParameter("NIM", nim));
-            cmd.Parameters.Add(new SqlParameter("sm", status));
-            cmd.Parameters.Add(new SqlParameter("tm", tahun));
+            cmd.Parameters.Add(new SqlParameter("sm", statusMahasiswa));
+            cmd.Parameters.Add(new SqlParameter("tm", tahunMasuk));
             cmd.ExecuteNonQuery();
             koneksi.Close();
 
-            MessageBox.Show("Data berhasil disimpan", "Sukses", MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+            MessageBox.Show("Data Berhasil Disimpan", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
             refreshform();
             dataGridView();
         }
@@ -116,7 +117,7 @@ namespace Act6
         private void cbTahun()
         {
             int y = DateTime.Now.Year - 2010;
-            string[] type = new string[y]; 
+            string[] type = new string[y];
             int i = 0;
             for (i = 0; i < type.Length; i++)
             {
@@ -167,7 +168,7 @@ namespace Act6
             cbNama();
             btnClear.Enabled = true;
             btnSave.Enabled = true;
-            btnAdd.Enabled = true;
+            btnAdd.Enabled = false;
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -176,6 +177,13 @@ namespace Act6
         }
 
         private void Status_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Form1 fm = new Form1();
+            fm.Show();
+            this.Hide();
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
         {
             Form1 fm = new Form1();
             fm.Show();

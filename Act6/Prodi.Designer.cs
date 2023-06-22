@@ -38,6 +38,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtnm = new System.Windows.Forms.TextBox();
             this.btnAddNama = new System.Windows.Forms.Button();
+            this.btnBack = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -130,19 +131,32 @@
             // 
             // btnAddNama
             // 
+            this.btnAddNama.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.btnAddNama.Location = new System.Drawing.Point(526, 365);
             this.btnAddNama.Name = "btnAddNama";
             this.btnAddNama.Size = new System.Drawing.Size(75, 36);
             this.btnAddNama.TabIndex = 9;
             this.btnAddNama.Text = "Add";
-            this.btnAddNama.UseVisualStyleBackColor = true;
+            this.btnAddNama.UseVisualStyleBackColor = false;
             this.btnAddNama.Click += new System.EventHandler(this.btnAddNama_Click);
+            // 
+            // btnBack
+            // 
+            this.btnBack.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnBack.Location = new System.Drawing.Point(28, 65);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(75, 37);
+            this.btnBack.TabIndex = 10;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = false;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // Prodi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 477);
+            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnAddNama);
             this.Controls.Add(this.txtnm);
             this.Controls.Add(this.label2);
@@ -174,5 +188,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtnm;
         private System.Windows.Forms.Button btnAddNama;
+        private System.Windows.Forms.Button btnBack;
     }
 }
